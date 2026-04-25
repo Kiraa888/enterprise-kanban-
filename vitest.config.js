@@ -1,8 +1,5 @@
-import { defineConfig } from 'vitest/config';
+import { defineConfig } from 'vite';
 
 export default defineConfig({
-  test: {
-    environment: 'happy-dom',
-    globals: true,
-  },
+  base: '/enterprise-kanban-/', 
 });
