@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Enterprise Kanban Board with Undo, A11y, and Testing">
+  <title>Enterprise Kanban Board</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+</head>
+<body>
+  <div id="app-content">
+    <header role="banner">
+      <div class="header-left">
+        <h1>Project Board</h1>
+        <button id="themeToggle" class="icon-btn" aria-label="Toggle Dark Mode" aria-pressed="false">🌙</button>
+      </div>
+      <div class="controls">
+        <div class="search-wrapper">
+          <span class="search-icon" aria-hidden="true">🔍</span>
+          <input type="search" id="searchInput" placeholder="Search tasks..." aria-label="Search tasks">
+        </div>
+        <a href="#" target="_blank" rel="noopener noreferrer" class="secondary-btn portfolio-btn">My Portfolio</a>
+        <button id="addTaskBtn" class="primary-btn" aria-haspopup="dialog">+ Add Task (Ctrl+N)</button>
+      </div>
+    </header>
+
+    <main class="board" id="board" role="main">
+      <section class="column" data-status="todo" aria-labelledby="todo-header">
+        <div class="column-header">
+          <h2 id="todo-header">To Do <span class="counter" id="todo-count" aria-live="polite">0</span></h2>
+        </div>
+        <div class="task-list" id="list-todo" role="list"></div>
+      </section>
+
+      <section class="column" data-status="in-progress" aria-labelledby="in-progress-header">
+        <div class="column-header">
+          <h2 id="in-progress-header">In Progress <span class="counter" id="in-progress-count" aria-live="polite">0</span></h2>
+        </div>
+        <div class="task-list" id="list-in-progress" role="list"></div>
+      </section>
+
+      <section class="column" data-status="done" aria-labelledby="done-header">
+        <div class="column-header">
+          <h2 id="done-header">Done <span class="counter" id="done-count" aria-live="polite">0</span></h2>
+        </div>
+        <div class="task-list" id="list-done" role="list"></div>
+      </section>
+    </main>
+  </div>
+
+  <div id="taskModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-content">
+      <h2 id="modalTitle">Add New Task</h2>
+      <div id="formError" class="error-message" role="alert" aria-live="assertive"></div>
+      
+      <form id="taskForm" novalidate>
+        <input type="hidden" id="taskId">
+        <label for="title">Title *</label>
+        <input type="text" id="title" required aria-required="true" maxlength="60" placeholder="Max 60 characters">
+        
+        <label for="description">Description</label>
+        <textarea id="description" rows="3" maxlength="300"></textarea>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="priority">Priority</label>
+            <select id="priority">
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="dueDate">Due Date</label>
+            <input type="date" id="dueDate">
+          </div>
+        </div>
+        
+        <div class="modal-actions">
+          <button type="button" id="cancelBtn" class="secondary-btn">Cancel</button>
+          <button type="submit" id="saveBtn" class="primary-btn">Save Task</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="toastContainer" class="toast-container" aria-live="assertive" role="alert"></div>
+
+  <script type="module" src="/src/app.js"></script>
+</body>
+</html>
